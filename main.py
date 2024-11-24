@@ -18,7 +18,7 @@ t = claseMaquina.MaquinaTuring("0101000100111001",
 print("Dato de entrada en la cinta:\n" + "\n" + t.get_tape() + " -> " + "q1")
 
 while not t.final():
-    t.step()
+  t.step()
 
 print("\n" + "Resultado del cálculo de la máquina de Turing:")
 print(t.get_tape())
