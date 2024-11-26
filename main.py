@@ -4,9 +4,17 @@ import time
 estado_inicial_ = "q1",
 estados_aceptados = ["qf"],
 transiciones = {
-  ("q1","0"):("q1", "1", "R"),
+  ("q1","0"):("q2", "1", "R"),
   ("q1","1"):("q1", "0", "R"),
-  ("q1"," "):("qf", "", "R"),
+  ("q1"," "):("q3", "1", "R"),
+  
+  ("q2","0"):("q1", "0", "R"),
+  ("q2","1"):("qf", "0", "L"),
+  ("q2"," "):("q2", "1", "L"),
+
+  ("q3","0"):("q1", "1", "L"),
+  ("q3","1"):("q2", "1", "L"),
+  ("q3"," "):("q3", "1", "R"),
 }
 estado_final_ = {"qf"}
 
@@ -51,6 +59,8 @@ def main():
 
   time.sleep(3)
 
+  numeroOg = t.get_cinta()
+
   print("\nDato de entrada en la cinta: " +
         t.get_cinta() + "\n\n" +
         "Cinta -> Estado" + "\n\n" +
@@ -59,8 +69,9 @@ def main():
   while not t.final():
     t.step()
 
-  print("\n" + "Resultado del cálculo de la máquina de Turing:")
-  print(t.get_cinta() + "\n")
+  print("\n" + "Resultado del cálculo de la máquina de Turing:\n" +
+        "Entrada:   " + numeroOg + "\n" +
+        "Salida:    " + t.get_cinta() + "\n")
   return
 
 main()
