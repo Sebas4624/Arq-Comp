@@ -12,6 +12,7 @@ class Cinta(object):
     s = ""
     index_min = min(self.__cinta.keys()) 
     index_max = max(self.__cinta.keys())
+
     for i in range(index_min, index_max + 1):
       s += self.__cinta[i]
     return s    
@@ -38,6 +39,7 @@ class MaquinaTuring(object):
     self.__posicion_cabeza = 0
     self.__simbolo_blanco = simbolo_blanco
     self.__estado_actual = estado_inicial
+
     if transiciones == None:
       self.__transiciones = {}
     else:
@@ -46,13 +48,14 @@ class MaquinaTuring(object):
       self.__final_states = set()
     else:
       self.__final_states = set(estados_finales)
-      
-  def get_tape(self): 
+
+  def get_cinta(self): 
     return str(self.__cinta)
   
   def step(self):
     char_cabeza = self.__cinta[self.__posicion_cabeza]
     x = (self.__estado_actual, char_cabeza)
+
     if x in self.__transiciones:
       y = self.__transiciones[x]
       self.__cinta[self.__posicion_cabeza] = y[1]
@@ -61,8 +64,9 @@ class MaquinaTuring(object):
       elif y[2] == "L":
         self.__posicion_cabeza -= 1
       self.__estado_actual = y[0]
-    time.sleep(1)
-    print(self.get_tape() + " -> " + self.__estado_actual)
+
+    time.sleep(2)
+    print(self.get_cinta() + " -> " + self.__estado_actual)
 
   def final(self):
     if self.__estado_actual in self.__final_states:

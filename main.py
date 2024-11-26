@@ -1,4 +1,5 @@
 import claseMaquina
+import time
 
 estado_inicial_ = "q1",
 estados_aceptados = ["qf"],
@@ -24,8 +25,8 @@ def validarBinario(binario):
 def main():
   numeroBin = ""
 
-  with open('test.txt', 'r') as f:
-    numeroBin = f.read().replace("\n", "")
+  with open('input.txt', 'r') as f:
+    numeroBin = f.read().replace("\n", "").replace(" ", "")
   
   if not validarBinario(numeroBin):
     print("El dato de entrada debe ser un número binario, de entre 1 y 200 caractéres, pero se introdujo:\n" + str(numeroBin))
@@ -35,14 +36,31 @@ def main():
                     estado_inicial = "q1",
                     estados_finales = estado_final_,
                     transiciones = transiciones)
+  
+  print("\nTabla de reglas de la máquina\n\n Qi   Sj | Qij   Sij   Dij\n" +
+        "—————————┼————————————————")
+  
+  for key, value in transiciones.items():
+    r = value[1]
 
-  print("Dato de entrada en la cinta: " + t.get_tape() + "\n" + "\n" + t.get_tape() + " -> " + "q1")
+    if r == "":
+      r = " "
+
+    print(f" {key[0]}   {key[1]}  | {value[0]}     {r}     {value[2]} \n" +
+          "—————————┼————————————————")
+
+  time.sleep(3)
+
+  print("\nDato de entrada en la cinta: " +
+        t.get_cinta() + "\n\n" +
+        "Cinta -> Estado" + "\n\n" +
+        t.get_cinta() + " -> " + "q1")
 
   while not t.final():
     t.step()
 
   print("\n" + "Resultado del cálculo de la máquina de Turing:")
-  print(t.get_tape())
+  print(t.get_cinta() + "\n")
   return
 
 main()
